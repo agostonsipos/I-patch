@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./implicit/implicit_test -d yes
+./tessellation/tessellation_test -d yes

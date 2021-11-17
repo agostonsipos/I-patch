@@ -1,0 +1,18 @@
+[submodule "autodiff"]
+	path = autodiff
+	url = https://github.com/autodiff/autodiff
+[submodule "c0coons"]
+	path = c0coons
+	url = https://github.com/agostonsipos/c0coons
+[submodule "dfo"]
+	path = dfo
+	url = https://github.com/salvipeter/dfo
+[submodule "libgeom"]
+	path = libgeom
+	url = https://github.com/salvipeter/libgeom
+[submodule "implicit_marching_cubes"]
+	path = implicit_marching_cubes
+	url = https://github.com/agostonsipos/implicit_marching_cubes
+[submodule "dual-contouring"]
+	path = dual-contouring
+	url = https://github.com/salvipeter/dual-contouring
