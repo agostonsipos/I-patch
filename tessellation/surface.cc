@@ -50,7 +50,7 @@ static BoundingBox computeBoundingBox(const PointVector &p) {
 Surface::Surface(C0Coons coons_patch, Ipatch i_patch, std::vector<CornerPoint> corner_points):
 		corners(corner_points), coons(std::make_unique<C0Coons>(coons_patch)), patch(std::make_unique<Ipatch>(i_patch))
 {
-	Geometry::PointVector p;
+	Geometry::PointVector p(corner_points.size());
 	std::transform(corner_points.begin(), corner_points.end(), p.begin(), [](CornerPoint& cp){ return cp.first; });
 	setBBox(computeBoundingBox(p));
 }

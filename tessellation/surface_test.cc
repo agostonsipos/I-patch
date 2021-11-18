@@ -1,5 +1,8 @@
 #include "surface.hh"
 
+#include "plane.hh"
+#include "liming.hh"
+
 #define CATCH_CONFIG_MAIN
 #include <../misc/catch.hpp>
 
@@ -7,7 +10,56 @@ using namespace I_patch;
 using namespace Geometry;
 using namespace std;
 
-TEST_CASE( "Surface test 1", "[surface]" )
+TEST_CASE("Surface test 1", "[surface]")
+{
+	Point3D p1(1., 0., 0.), p2(0., 1., 0.), p3(0., 0., 1.);
+
+	RationalBezierCurve c1({ p1, p1 + p2, p2 }, { 1,1 / sqrt(2),1 }),
+		c2({ p2, p2 + p3, p3 }, { 1,1 / sqrt(2),1 }),
+		c3({ p3, p3 + p1, p1 }, { 1,1 / sqrt(2),1 });
+
+	C0Coons coons({
+		make_shared<RationalBezierCurve>(c1),
+		make_shared<RationalBezierCurve>(c2),
+		make_shared<RationalBezierCurve>(c3)
+	});
+
+	Vector3D n1 = p1, n2 = p2, n3 = p3;
+	Plane pl1(p1, n1), pl2(p2, n2), pl3(p3, n3);
+
+	Liming l1({ pl1, pl2, Plane(p1, (p1 + p2).normalize()) }, c1.eval(0.5)); l1.invert();
+	Liming l2({ pl2, pl3, Plane(p2, (p2 + p3).normalize()) }, c2.eval(0.5)); l2.invert();
+	Liming l3({ pl3, pl1, Plane(p3, (p3 + p1).normalize()) }, c3.eval(0.5)); l3.invert();
+
+	Plane b1(p1, n3), b2(p2, n1), b3(p3, n2);
+
+	Ipatch patch(
+		{ make_shared<Liming>(l1), make_shared<Liming>(l2), make_shared<Liming>(l3) }, 
+		{ make_shared<Plane>(b1), make_shared<Plane>(b2), make_shared<Plane>(b3) }
+	);
+
+	patch.setInitialCoeffs(Vector3D(1, 1, 1).normalize());
+
+	Geometry::PointVector sphere_points{ {1,1,1},{2,1,-3},{-1,2,5},{3,0,3} };
+	for (auto& it : sphere_points) it = it.normalize();
+	
+	for (const auto& it : sphere_points)
+		REQUIRE(patch(it) < 1e-3);
+
+	Surface surf(coons, patch, { {p1,n1},{p2,n2},{p3,n3} });
+
+	TriMesh result = surf.eval(30, 0.0);
+
+	for (auto it : result.points())
+	{
+		REQUIRE(((it[0] >= -1e-5) && (it[1] >= -1e-5) && (it[2] >= -1e-5)));
+		double val = surf.implicitEval(it);
+		if (!std::isnan(val))
+			REQUIRE(std::abs(val) < 1e-3);
+	}
+}
+
+TEST_CASE("Surface test 2", "[surface]")
 {
 	TriMesh sphere = TriMesh::readOBJ("sphere.obj");
 
@@ -59,7 +111,7 @@ TEST_CASE( "Surface test 1", "[surface]" )
 	surf.exportColoredMesh("colored1.ply");
 }
 
-TEST_CASE( "Surface test 2", "[surface]" )
+TEST_CASE( "Surface test 3", "[surface]" )
 {
 	TriMesh cagd86 = TriMesh::readOBJ("cagd86.obj");
 
