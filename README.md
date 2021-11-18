@@ -22,7 +22,7 @@ On Windows, you may use CMake to generate project files for the IDE of your choi
 
 ### As implicit functions
 
-`class Ipatch`, defined in `implicit/ipatch.hh` represents an implicit function ($$\mathbb{R}^3 \rightarrow \mathbb{R}$$), whose 0-isosurface is of our interest. Usage examples (creating, evaluating) can be seen in `implicit_test.cc`
+`class Ipatch`, defined in `implicit/ipatch.hh` represents an implicit function (R<sup>3</sup>→R), whose 0-isosurface is of our interest. Usage examples (creating, evaluating) can be seen in `implicit_test.cc`
 
 ### As multi-sided patches
 `class Surface`, defined in `tessellation/surface.hh` represents a finite portion of the implicit surface, enclosed by a boundary curve loop. A `Surface` object can be created two ways.
