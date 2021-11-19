@@ -8,8 +8,9 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-set(GEOM_DIR "libgeom") # https://github.com/salvipeter/libgeom
-include_directories("${GEOM_DIR}")
+
+set(LIBGEOM_DIR "libgeom") # https://github.com/salvipeter/libgeom
+include_directories("${LIBGEOM_DIR}")
 
 set(AD_DIR "autodiff") # https://github.com/autodiff/autodiff
 include_directories("${AD_DIR}")
