@@ -105,8 +105,12 @@ double Ipatch::eval(double x, double y, double z) const {
 	return evalImpl<double>(x, y, z);
 }
 
-Ipatch::Dual Ipatch::eval(const Dual &x, const Dual &y, const Dual &z) const {
+Ipatch::Dual Ipatch::eval(const Dual& x, const Dual& y, const Dual& z) const {
 	return evalImpl<Dual>(x, y, z);
+}
+
+Ipatch::Dual2 Ipatch::eval(const Dual2& x, const Dual2& y, const Dual2& z) const {
+	return evalImpl<Dual2>(x, y, z);
 }
 
 }

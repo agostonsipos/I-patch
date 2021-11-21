@@ -18,6 +18,7 @@ class ImplicitSurface
 public:
 	using Point3D = Geometry::Point3D;
 	using Vector3D = Geometry::Vector3D;
+	using Matrix3x3 = Geometry::Matrix3x3;
 	using PointVector = Geometry::PointVector;
 
 	double operator()(const Point3D &p) const { return evaluateFunction(p); }
@@ -27,12 +28,15 @@ public:
 
 	double evaluateFunction(const Point3D &p) const;
 	Vector3D evaluateGradient(const Point3D &p) const;
+	Matrix3x3 evaluateHessian(const Point3D &p) const;
 
 protected:
 	friend Ipatch;
 
 	using Dual = autodiff::dual;
-	virtual Dual eval(const Dual &x, const Dual &y, const Dual &z) const = 0;
+	using Dual2 = autodiff::dual2nd;
+	virtual Dual eval(const Dual& x, const Dual& y, const Dual& z) const = 0;
+	virtual Dual2 eval(const Dual2& x, const Dual2& y, const Dual2& z) const = 0;
 	virtual double eval(double x, double y, double z) const = 0;
 };
 

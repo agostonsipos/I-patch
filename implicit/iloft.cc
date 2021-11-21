@@ -86,8 +86,12 @@ double Iloft::eval(double x, double y, double z) const {
 	return evalImpl<double>(x, y, z);
 }
 
-Iloft::Dual Iloft::eval(const Dual &x, const Dual &y, const Dual &z) const {
+Iloft::Dual Iloft::eval(const Dual& x, const Dual& y, const Dual& z) const {
 	return evalImpl<Dual>(x, y, z);
+}
+
+Iloft::Dual2 Iloft::eval(const Dual2& x, const Dual2& y, const Dual2& z) const {
+	return evalImpl<Dual2>(x, y, z);
 }
 
 void Iloft::printLog()

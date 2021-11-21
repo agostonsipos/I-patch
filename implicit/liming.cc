@@ -76,8 +76,12 @@ double Liming::eval(double x, double y, double z) const {
 	return evalImpl<double>(x, y, z);
 }
 
-Liming::Dual Liming::eval(const Dual &x, const Dual &y, const Dual &z) const {
+Liming::Dual Liming::eval(const Dual& x, const Dual& y, const Dual& z) const {
 	return evalImpl<Dual>(x, y, z);
+}
+
+Liming::Dual2 Liming::eval(const Dual2& x, const Dual2& y, const Dual2& z) const {
+	return evalImpl<Dual2>(x, y, z);
 }
 
 void Liming::printLog()

@@ -66,4 +66,22 @@ Vector3D ImplicitSurface::evaluateGradient(const Point3D &p) const {
 	};
 }
 
+Matrix3x3 ImplicitSurface::evaluateHessian(const Point3D& p) const {
+	using namespace autodiff;
+	auto f = [&](const dual2nd& x, const dual2nd& y, const dual2nd& z) { return eval(x, y, z); };
+	dual2nd x = p[0], y = p[1], z = p[2];
+	std::vector<double> data{
+		derivative<2>(f, wrt(x, x), at(x, y, z)),
+		derivative<2>(f, wrt(x, y), at(x, y, z)),
+		derivative<2>(f, wrt(x, z), at(x, y, z)),
+		derivative<2>(f, wrt(y, x), at(x, y, z)),
+		derivative<2>(f, wrt(y, y), at(x, y, z)),
+		derivative<2>(f, wrt(y, z), at(x, y, z)),
+		derivative<2>(f, wrt(z, x), at(x, y, z)),
+		derivative<2>(f, wrt(z, y), at(x, y, z)),
+		derivative<2>(f, wrt(z, z), at(x, y, z)),
+	};
+	return Matrix3x3(data.data());
+}
+
 }
