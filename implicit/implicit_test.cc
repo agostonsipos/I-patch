@@ -79,4 +79,9 @@ TEST_CASE( "Ipatch test", "[ipatch]" )
 	REQUIRE( d[2] == Approx(d[0]) );
 	
 	REQUIRE( I(Point3D(-sqt, sqt, -sqt)) == Approx(0).margin(1e-10) ); // as it is a sphere
+
+	Matrix3x3 H = I.evaluateHessian(Point3D(1, 2, 3).normalize());
+	for (size_t i = 0; i < 3; ++i) for (size_t j = 0; j < 3; ++j)
+		REQUIRE(H(i, j) == Approx(i == j).margin(1e-10));
+
 }
