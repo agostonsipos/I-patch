@@ -10,13 +10,13 @@ Based on papers:
 
 I-patches are a family of multi-sided, implicit patches. They are defined by a number of side interpolant (also called ribbon) surfaces and the same number of bounding surfaces. The resulting surface is defined inside the part of space delimited by the bounding surfaces, and interpolates the ribbon surfaces with a given order of geometric continuity.
 
-![ribbons & boundings](https://user-images.githubusercontent.com/25045084/143272235-4164b982-9029-490c-b4dc-7603b03b0bc0.png) ![patch](https://user-images.githubusercontent.com/25045084/143272242-a8bf97b9-2fa0-426f-afcc-ab1b4553b56c.png)
+![ribbons & boundings](https://user-images.githubusercontent.com/25045084/143282436-be45f597-1772-4237-947e-f107813148b9.png) ![patch](https://user-images.githubusercontent.com/25045084/143282437-99769ec2-5de5-47ce-8bd1-be1a58930e2a.png)
 
 ![example2](https://user-images.githubusercontent.com/25045084/143278556-9b6e08b5-25d4-4876-a7e0-7267d8808254.png)
 
 Implicit surfaces are efficient for a handful of operations, including inside/outside classification, distance calculation or line intersection (raycasting). I-patches seek to overcome their weaknesses in producing shape problems (like singularities, self-intersections, and disconnected parts), by limiting the surface to a portion of the whole space, while retaining general topology.
 
-![polyhedral](http://3dgeo.iit.bme.hu/images/implicit/polyhedral2-shaded.png)
+![polyhedral](https://user-images.githubusercontent.com/25045084/143282432-222c2049-9e8e-4187-9bd1-995919359fdf.png)
 
 ## Compiling
 
