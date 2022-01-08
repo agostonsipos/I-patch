@@ -54,6 +54,8 @@ public:
 
 	void exportColoredMesh(std::string filename);
 
+	const Ipatch& getPatch() { return *patch; }
+
 private:
 	Geometry::PointVector filterPoints(const Geometry::PointVector &points) const;
 
