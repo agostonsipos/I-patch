@@ -11,8 +11,6 @@ namespace I_patch
 
 enum class ApproxError { Sum = 1, Max = 2 };
 
-class Ipatch;
-
 class ImplicitSurface
 {
 public:
@@ -29,9 +27,6 @@ public:
 	double evaluateFunction(const Point3D &p) const;
 	Vector3D evaluateGradient(const Point3D &p) const;
 	Matrix3x3 evaluateHessian(const Point3D &p) const;
-
-protected:
-	friend Ipatch;
 
 	using Dual = autodiff::dual;
 	using Dual2 = autodiff::dual2nd;

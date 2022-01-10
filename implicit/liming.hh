@@ -23,11 +23,11 @@ public:
 	static void setNormalize(bool norm) { normalize = norm; }
 	double getLambda() { return lambda; }
 
-private:
 	double eval(double x, double y, double z) const override;
 	Dual eval(const Dual &x, const Dual &y, const Dual &z) const override;
 	Dual2 eval(const Dual2& x, const Dual2& y, const Dual2& z) const override;
 
+protected:
 	template<typename T>
 	T evalImpl(const T &x, const T &y, const T &z) const;
 

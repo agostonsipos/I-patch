@@ -16,14 +16,11 @@ struct Plane : public ImplicitSurface {
 	Point3D p;
 	Vector3D n;
 
-private:
-	friend Iloft;
-	friend Liming;
-
 	double eval(double x, double y, double z) const override;
 	Dual eval(const Dual &x, const Dual &y, const Dual &z) const override;
 	Dual2 eval(const Dual2& x, const Dual2& y, const Dual2& z) const override;
 
+protected:
 	template<typename T>
 	T evalImpl(const T &x, const T &y, const T &z) const;
 };
