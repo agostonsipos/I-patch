@@ -17,12 +17,12 @@ const int Ipatch::exponent = 2;
 
 double Ipatch::maxRatio;
 
-void Ipatch::setInitialCoeffs(const Point3D &center)
+void Ipatch::setInitialCoeffs(const Point3D &center, bool use_p_i)
 {
-	setInitialCoeffs(center, std::vector<double>(N() + 1, 1.0));
+	setInitialCoeffs(center, std::vector<double>(N() + 1, 1.0), use_p_i);
 }
 
-void Ipatch::setInitialCoeffs(const Point3D &center, const std::vector<double> &d)
+void Ipatch::setInitialCoeffs(const Point3D &center, const std::vector<double> &d, bool use_p_i)
 {
 	_d = d;
 	w.resize(N() + 1);
@@ -31,8 +31,16 @@ void Ipatch::setInitialCoeffs(const Point3D &center, const std::vector<double> &
 	for (size_t i = 0; i < N(); ++i)
 	{
 		double pb2 = (*(R[i]))(center) / std::abs(pow((*(B[i]))(center), exponent));
-		w[i] = std::abs(d[i] / pb2);
-		lastCoeff -= d[i] * ((pb2 >= 0) ? 1 : -1);
+		double b2 = 1 / std::abs(pow((*(B[i]))(center), exponent));
+		if(use_p_i){
+			w[i] = std::abs(d[i] / pb2);
+			lastCoeff -= d[i] * ((pb2 >= 0) ? 1 : -1);
+		}
+		else{
+			w[i] = std::abs(d[i] / b2);
+			lastCoeff -= d[i] * ((b2 >= 0) ? 1 : -1) * (*(R[i]))(center);
+		}
+		//lastCoeff -= d[i] * ((pb2 >= 0) ? 1 : -1);
 	}
 	if (d.size() > N())
 		lastCoeff *= d[N()];

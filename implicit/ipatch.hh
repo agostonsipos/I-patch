@@ -15,8 +15,8 @@ public:
 	{
 	}
 
-	void setInitialCoeffs(const Point3D &p);
-	void setInitialCoeffs(const Point3D &p, const std::vector<double> &d);
+	void setInitialCoeffs(const Point3D &p, bool use_p_i = true);
+	void setInitialCoeffs(const Point3D &p, const std::vector<double> &d, bool use_p_i = true);
 	void setOptimizedCoeffs(const PointVector &pv, double step = 1, bool algebraic = false);
 
 	size_t N() const { return R.size(); }
