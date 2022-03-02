@@ -307,7 +307,8 @@ void Surface::exportColoredMesh(std::string filename)
 	std::vector<Vector3D> colors(patch->N());
 	for (size_t i = 0; i < patch->N(); ++i)
 	{
-		colors[i] = HSVtoRGB(i * 360.0 / patch->N(), 1., 1.);
+		int step = (patch->N() % 2 != 0) ? (patch->N() / 2) : ((patch->N() % 3 != 0) ? (patch->N() / 3) : 1);
+		colors[i] = HSVtoRGB((step*i % patch->N()) * 360.0 / patch->N(), 1., 1.);
 	}
 	for (auto it : mesh.points())
 	{
